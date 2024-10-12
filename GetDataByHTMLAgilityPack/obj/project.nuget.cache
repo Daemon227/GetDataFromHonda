@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "f7pvLmMl0Zo=",
+  "success": true,
+  "projectFilePath": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\BTL\\GetData\\GetDataByHTMLAgilityPack\\GetDataByHTMLAgilityPack\\GetDataByHTMLAgilityPack.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\hoang\\.nuget\\packages\\htmlagilitypack\\1.11.67\\htmlagilitypack.1.11.67.nupkg.sha512"
+  ],
+  "logs": []
+}

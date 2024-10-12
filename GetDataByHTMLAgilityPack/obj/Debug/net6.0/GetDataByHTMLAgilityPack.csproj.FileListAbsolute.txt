@@ -1,0 +1,17 @@
+D:\HOC TAP\HOC KY 5\PTPM DV\BTL\GetData\GetDataByHTMLAgilityPack\GetDataByHTMLAgilityPack\bin\Debug\net6.0\GetDataByHTMLAgilityPack.exe
+D:\HOC TAP\HOC KY 5\PTPM DV\BTL\GetData\GetDataByHTMLAgilityPack\GetDataByHTMLAgilityPack\bin\Debug\net6.0\GetDataByHTMLAgilityPack.deps.json
+D:\HOC TAP\HOC KY 5\PTPM DV\BTL\GetData\GetDataByHTMLAgilityPack\GetDataByHTMLAgilityPack\bin\Debug\net6.0\GetDataByHTMLAgilityPack.runtimeconfig.json
+D:\HOC TAP\HOC KY 5\PTPM DV\BTL\GetData\GetDataByHTMLAgilityPack\GetDataByHTMLAgilityPack\bin\Debug\net6.0\GetDataByHTMLAgilityPack.dll
+D:\HOC TAP\HOC KY 5\PTPM DV\BTL\GetData\GetDataByHTMLAgilityPack\GetDataByHTMLAgilityPack\bin\Debug\net6.0\GetDataByHTMLAgilityPack.pdb
+D:\HOC TAP\HOC KY 5\PTPM DV\BTL\GetData\GetDataByHTMLAgilityPack\GetDataByHTMLAgilityPack\bin\Debug\net6.0\HtmlAgilityPack.dll
+D:\HOC TAP\HOC KY 5\PTPM DV\BTL\GetData\GetDataByHTMLAgilityPack\GetDataByHTMLAgilityPack\obj\Debug\net6.0\GetDataByHTMLAgilityPack.csproj.AssemblyReference.cache
+D:\HOC TAP\HOC KY 5\PTPM DV\BTL\GetData\GetDataByHTMLAgilityPack\GetDataByHTMLAgilityPack\obj\Debug\net6.0\GetDataByHTMLAgilityPack.GeneratedMSBuildEditorConfig.editorconfig
+D:\HOC TAP\HOC KY 5\PTPM DV\BTL\GetData\GetDataByHTMLAgilityPack\GetDataByHTMLAgilityPack\obj\Debug\net6.0\GetDataByHTMLAgilityPack.AssemblyInfoInputs.cache
+D:\HOC TAP\HOC KY 5\PTPM DV\BTL\GetData\GetDataByHTMLAgilityPack\GetDataByHTMLAgilityPack\obj\Debug\net6.0\GetDataByHTMLAgilityPack.AssemblyInfo.cs
+D:\HOC TAP\HOC KY 5\PTPM DV\BTL\GetData\GetDataByHTMLAgilityPack\GetDataByHTMLAgilityPack\obj\Debug\net6.0\GetDataByHTMLAgilityPack.csproj.CoreCompileInputs.cache
+D:\HOC TAP\HOC KY 5\PTPM DV\BTL\GetData\GetDataByHTMLAgilityPack\GetDataByHTMLAgilityPack\obj\Debug\net6.0\GetDataB.8381F3C7.Up2Date
+D:\HOC TAP\HOC KY 5\PTPM DV\BTL\GetData\GetDataByHTMLAgilityPack\GetDataByHTMLAgilityPack\obj\Debug\net6.0\GetDataByHTMLAgilityPack.dll
+D:\HOC TAP\HOC KY 5\PTPM DV\BTL\GetData\GetDataByHTMLAgilityPack\GetDataByHTMLAgilityPack\obj\Debug\net6.0\refint\GetDataByHTMLAgilityPack.dll
+D:\HOC TAP\HOC KY 5\PTPM DV\BTL\GetData\GetDataByHTMLAgilityPack\GetDataByHTMLAgilityPack\obj\Debug\net6.0\GetDataByHTMLAgilityPack.pdb
+D:\HOC TAP\HOC KY 5\PTPM DV\BTL\GetData\GetDataByHTMLAgilityPack\GetDataByHTMLAgilityPack\obj\Debug\net6.0\GetDataByHTMLAgilityPack.genruntimeconfig.cache
+D:\HOC TAP\HOC KY 5\PTPM DV\BTL\GetData\GetDataByHTMLAgilityPack\GetDataByHTMLAgilityPack\obj\Debug\net6.0\ref\GetDataByHTMLAgilityPack.dll
