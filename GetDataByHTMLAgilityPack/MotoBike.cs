@@ -13,12 +13,10 @@ namespace GetDataByHTMLAgilityPack
         //Thong tin chung
         private string maXe;
         private string tenXe;
-        private string loaiXe;
-        private string hangSanXuat;
         private string anhMoTaUrl;
         private string giaBanMoTa;
-        private string moTa;
-
+        private string maHangSanXuat;
+        private string maLoai;
         // lay o page 2
         // Thong so ky thuat  
         private string trongLuong;
@@ -38,6 +36,9 @@ namespace GetDataByHTMLAgilityPack
         private string dungTichXyLanh;
         private string duongKinhHanhTrinhPittong;
         private string tySoNen;
+        private string tinhNangNoiBat;
+        private string thietKe;
+        private string tienIch;
 
         //Thong tin version
         private List<BikeVersion> bikeVersionList = new List<BikeVersion>();
@@ -46,10 +47,8 @@ namespace GetDataByHTMLAgilityPack
         #region Set and Get
         public string MaXe { get => maXe; set => maXe = value; }
         public string TenXe { get => tenXe; set => tenXe = value; }
-        public string LoaiXe { get => loaiXe; set => loaiXe = value; }
-        public string HangSanXuat { get => hangSanXuat; set => hangSanXuat = value; }
+
         public string AnhMoTaUrl { get => anhMoTaUrl; set => anhMoTaUrl = value; }
-        public string MoTa { get => moTa; set => moTa = value; }
         public List<BikeVersion> BikeVersionList { get => bikeVersionList; set => bikeVersionList = value; }
         public string TrongLuong { get => trongLuong; set => trongLuong = value; }
         public string KichThuoc { get => kichThuoc; set => kichThuoc = value; }
@@ -70,86 +69,57 @@ namespace GetDataByHTMLAgilityPack
         public string GiaBanMoTa { get => giaBanMoTa; set => giaBanMoTa = value; }
         public string HeThongKhoiDong { get => heThongKhoiDong; set => heThongKhoiDong = value; }
         internal MotoLibrary MotoLibrary { get => motoLibrary; set => motoLibrary = value; }
+        public string MaHangSanXuat { get => maHangSanXuat; set => maHangSanXuat = value; }
+        public string MaLoai { get => maLoai; set => maLoai = value; }
+        public string TinhNangNoiBat { get => tinhNangNoiBat; set => tinhNangNoiBat = value; }
+        public string ThietKe { get => thietKe; set => thietKe = value; }
+        public string TienIch { get => tienIch; set => tienIch = value; }
         #endregion
 
-        public void SetAnhMauGia(string maPhienBan, string tenPhienBan,string giaBan, string anhUrl, string mau)
+        public void setMotoVersion(string maPhienBan, string tenPhienBan, string giaBan, string mamau,string tenmau, List<string> anhVersions)
         {
             BikeVersion thing = new BikeVersion();
             thing.MaVersion = maPhienBan;
             thing.TenVersion = tenPhienBan;
             thing.GiaBanVersion = giaBan;
-            thing.AnhVersionUrl = anhUrl;
-            thing.MauVersion = mau;
+            thing.setVersionColor(mamau,tenmau, anhVersions);
             this.bikeVersionList.Add(thing);
         }
-        
+
         public void setMotoLibrary(string maLibrary, List<string> imgList)
-        { 
+        {
             this.motoLibrary.MaLibrary = maLibrary;
             this.motoLibrary.MotoImageList = imgList;
         }
-        public void ShowInformation()
+
+        public override string ToString()
         {
-            // infor page1
-            Console.WriteLine(this.MaXe);
-            Console.WriteLine(this.tenXe);
-            Console.WriteLine(this.HangSanXuat);
-            Console.WriteLine(this.LoaiXe);
-            Console.WriteLine(this.anhMoTaUrl);
-            Console.WriteLine(this.giaBanMoTa);
-            Console.WriteLine(this.moTa);
-
-            //infor thong so ky thuat
-            /* Console.WriteLine(this.trongLuong);
-             Console.WriteLine(this.kichThuoc);
-             Console.WriteLine(this.khoangCachTrucBanhXe);
-             Console.WriteLine(this.doCaoYen);
-             Console.WriteLine(this.doCaoGamXe);
-             Console.WriteLine(this.dungTichBinhXang);
-             Console.WriteLine(this.kichCoLop);
-             Console.WriteLine(this.phuocTruoc);
-             Console.WriteLine(this.phuocSau);
-             Console.WriteLine(this.loaiDongCo);
-             Console.WriteLine(this.congSuatToiDa);
-             Console.WriteLine(this.mucTieuThuNhienLieu);
-             Console.WriteLine(this.heThongKhoiDong);
-             Console.WriteLine(this.momentCucDai);
-             Console.WriteLine(this.dungTichXyLanh);
-             Console.WriteLine(this.duongKinhHanhTrinhPittong);
-             Console.WriteLine(this.tySoNen);  
-             Console.WriteLine();*/
-
-            // thong so version
-            ShowBikeVersion();
-
-            // danh sach cac anh trong thu vien anh
-            ShowMotoLibrary();
-        }
-
-        public void ShowBikeVersion()
-        {
-            foreach (var amg in bikeVersionList)
-            {
-                Console.WriteLine(amg.MaVersion);
-                Console.WriteLine(amg.TenVersion);
-                Console.WriteLine(amg.GiaBanVersion);
-                Console.WriteLine(amg.AnhVersionUrl);
-                Console.WriteLine(amg.MauVersion);
-                Console.WriteLine();
-            }
-        }
-
-        public void ShowMotoLibrary()
-        {
-            if (motoLibrary.MotoImageList.Count > 0)
-            {
-                Console.WriteLine(motoLibrary.MaLibrary);
-                foreach(var img in motoLibrary.MotoImageList)
-                {
-                    Console.WriteLine(img);
-                }
-                Console.WriteLine();
-            }
+            return $"MaXe: {maXe}\n" +
+                   $"TenXe: {tenXe}\n" +
+                   $"AnhMoTaUrl: {anhMoTaUrl}\n" +
+                   $"GiaBanMoTa: {giaBanMoTa}\n" +
+                   $"MaHangSanXuat: {maHangSanXuat}\n" +
+                   $"MaLoai: {maLoai}\n" +
+                   $"TrongLuong: {trongLuong}\n" +
+                   $"KichThuoc: {kichThuoc}\n" +
+                   $"KhoangCachTrucBanhXe: {khoangCachTrucBanhXe}\n" +
+                   $"DoCaoYen: {doCaoYen}\n" +
+                   $"DoCaoGamXe: {doCaoGamXe}\n" +
+                   $"DungTichBinhXang: {dungTichBinhXang}\n" +
+                   $"KichCoLop: {kichCoLop}\n" +
+                   $"PhuocTruoc: {phuocTruoc}\n" +
+                   $"PhuocSau: {phuocSau}\n" +
+                   $"LoaiDongCo: {loaiDongCo}\n" +
+                   $"CongSuatToiDa: {congSuatToiDa}\n" +
+                   $"MucTieuThuNhienLieu: {mucTieuThuNhienLieu}\n" +
+                   $"HeThongKhoiDong: {heThongKhoiDong}\n" +
+                   $"MomentCucDai: {momentCucDai}\n" +
+                   $"DungTichXyLanh: {dungTichXyLanh}\n" +
+                   $"DuongKinhHanhTrinhPittong: {duongKinhHanhTrinhPittong}\n" +
+                   $"TySoNen: {tySoNen}\n" +
+                   $"TinhNangNoiBat: {tinhNangNoiBat}\n" +
+                   $"ThietKe: {thietKe}\n" +
+                   $"TienIch: {tienIch}";
         }
     }
 }

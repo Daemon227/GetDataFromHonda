@@ -4,6 +4,10 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using static System.Net.WebRequestMethods;
 using Microsoft.Data.SqlClient;
+using static System.Net.Mime.MediaTypeNames;
+using System;
+using System.Xml.Linq;
+using System.Security.AccessControl;
 
 namespace GetDataByHTMLAgilityPack
 {
@@ -11,11 +15,14 @@ namespace GetDataByHTMLAgilityPack
     {
         // danh sách các xe
         public static List<MotoBike> motoBikes = new List<MotoBike>();
+        public static List<BikeType> bikeTypes = new List<BikeType>();
+        public static List<Brand> brands = new List<Brand>();
         // đường dẫn đến folder lưu ảnh, mọi người linh hoạt đổi nhé(đây là link lưu trong máy tôi thôi)
         public static string anhMoTaFolderPath = "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\BTL\\Data\\Img\\MoTa";
         public static string anhVersionFolderPath = "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\BTL\\Data\\Img\\AnhVersion";
         public static string libraryImgFolderPath = "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\BTL\\Data\\Img\\LibraryImgs";
-        public static string connectionString = @"Data Source=DatDepTrai;Initial Catalog=MotoDataWebsite;Integrated Security=True;Trust Server Certificate=True";
+
+        public static string connectionString = @"Data Source=DatDepTrai;Initial Catalog=MotoWebsite;Integrated Security=True;Trust Server Certificate=True";
         public static SqlConnection connection = null;
 
         static async Task Main(string[] args)
@@ -23,10 +30,21 @@ namespace GetDataByHTMLAgilityPack
             Console.OutputEncoding = Encoding.UTF8;
             await setInfomation();
             //ShowList();
+
             AddDataIntoMotoLibrary();
+            AddDataIntoMotoType();
+            AdddataIntoBrand();
             AddDataIntoMotoBike();
-            AddDataIntoMotoImage();
-            AddDataIntoBikeVersion();
+            AddDataIntoLibraryImage();
+            AddDataIntoMotoVersion();
+            AddDataIntoVersionColor();
+            /*foreach (MotoBike bike in motoBikes)
+            {
+                Console.WriteLine(bike.ToString());
+                Console.WriteLine();
+
+            }*/
+
             Console.WriteLine("Finished");
         }
 
@@ -38,113 +56,199 @@ namespace GetDataByHTMLAgilityPack
             //link page1
             var page1 = html.Load(webUrl);
             //lay list sp page1
-            var productNodes = page1.DocumentNode.SelectNodes("//div[@class='category-item col-lg-3 col-md-6 show']");
+            //var productNodes = page1.DocumentNode.SelectNodes("//div");
+            //var productNodes = page1.DocumentNode.SelectNodes("//div[contains(@class, 'category-item')]");
+            var product = page1.DocumentNode.SelectSingleNode("//div[@class = 'row-content row content_cate']");
+            
+            var productNodes = product.SelectNodes("./div");
 
             if (productNodes != null)
             {
                 foreach (var productNode in productNodes)
                 {
-                    MotoBike motoBike = new MotoBike();
-                    // set ma va hang san xuat
-                    int index = motoBikes.Count;
-                    motoBike.MaXe = "0" + index;
-                    motoBike.HangSanXuat = "Honda";
-                    motoBike.MoTa = "Mo ta";
-
-                    //lay du lieu o trang 1
-                    motoBike.TenXe = productNode.SelectSingleNode(".//div[@class='nameAndColor'] /h3").InnerText.Trim();
-                    motoBike.LoaiXe = productNode.GetAttributeValue("data-id", "");
-                    var imgsrc = productNode.SelectSingleNode(".//div[@class='thumb'] /img");
-                    if (imgsrc != null)
+                    if (!productNode.GetAttributeValue("data-id", "").Equals("xe-dien"))
                     {
-                        string url = imgsrc.GetAttributeValue("src", "");
-                        motoBike.AnhMoTaUrl = await DownloadImage(motoBike,url, anhMoTaFolderPath, (motoBike.MaXe + "_MoTa.png"));
-                    }
-                    motoBike.GiaBanMoTa = productNode.SelectSingleNode(".//div[@class='nameAndColor'] //span").InnerText.Trim();
+                        MotoBike motoBike = new MotoBike();
+                        // set ma va hang san xuat
+                        int index = motoBikes.Count;
+                        motoBike.MaXe = "0" + index;
+                        motoBike.MaHangSanXuat = "honda";
 
+                        //lay du lieu o trang 1
+                        motoBike.TenXe = productNode.SelectSingleNode(".//div[@class='nameAndColor'] /h3").InnerText.Trim();
+                        motoBike.MaLoai = productNode.GetAttributeValue("data-id", "");
 
-
-                    //lay du lieu tu trang 2
-                    var productDetailNode = productNode.SelectSingleNode(".//a[@class='category-item-content']");
-                    if (productDetailNode != null)
-                    {
-                        string productDetailUrl = productDetailNode.GetAttributeValue("href", "");
-                        var page2 = html.Load(webUrl2 + productDetailUrl);
-
-                        //lay thong tin ve anh, mau, gia
-                       await setBikeVersion(motoBike, page2);
-
-                        // lay tu danh sach thong tin ve thong so ky thuat
-                        setThongSoKyThuat(motoBike, page2);
-
-                        // lay danh sach anh trong thu vien anh
-                        await setMotoLibrary(motoBike, page2);
-                    }
-                    // them vao
-                    motoBikes.Add(motoBike);
-                    //break;
-                }
-            }
-        }
-
-        public static async Task setBikeVersion(MotoBike motoBike, HtmlDocument page2)
-        {// pt nay set version cua tung xe
-            var versionNodes = page2.DocumentNode.SelectSingleNode(".//div[@class ='motor-section-price-color-container price_color_for_pc']");
-            if( versionNodes != null)
-            {
-                foreach (var version in versionNodes.SelectNodes("./div[contains(@class,'motor-360')]"))
-                {
-                    //dat bien de gan gia tri 
-                    string maVersion;
-                    string tenPhienBan;
-                    string anhUrl ="";
-                    string giaBan;
-                    string mau = "";
-
-                    // set gia tri cho ma -> gia ban 
-                    string id = version.GetAttributeValue("data-index","");
-                    maVersion = motoBike.MaXe + "_Version_" + id;
-                    tenPhienBan = version.GetAttributeValue("data-label_model","");
-
-                    //set urlAnh cach 1
-                    var anhNode1 = version.SelectSingleNode(".//img[@alt ='example']");
-                    if (anhNode1 != null) 
-                    {
-                        string url = anhNode1.GetAttributeValue("src", "");
-                        string filename = maVersion;
-                        anhUrl = await DownloadImage(motoBike, url, anhVersionFolderPath, (filename +".png"));
-                        //anhUrl = anhNode.GetAttributeValue("src", "");
-                    }
-                    // day la vai cai url thieu
-                    var anhNode2 = version.SelectSingleNode(".//div[@class ='motor-360-img']/img");
-                    if (anhNode2 != null)
-                    {
-                        string url = anhNode2.GetAttributeValue("src", "");
-                        string filename = maVersion;
-                        anhUrl = await DownloadImage(motoBike, url, anhVersionFolderPath, (filename + ".png"));
-                        //anhUrl = anhNode.GetAttributeValue("src", "");
-                    }
-
-                    giaBan = version.SelectSingleNode(".//h2[@class='proposal-price']").InnerText.Trim();
-
-                    // set gia tri cho mau
-                    var mauNodes = versionNodes.SelectNodes(".//div[contains(@class,'version-color version-color')]");
-                    if (mauNodes != null)
-                    {
-                        foreach(var mauNode in mauNodes)
+                        var imgsrc = productNode.SelectSingleNode(".//div[@class='thumb'] /img");
+                        if (imgsrc != null)
                         {
-                            string dataindex = mauNode.GetAttributeValue("data-index","");
-                            if (dataindex.Equals(id))
+                            string url = imgsrc.GetAttributeValue("src", "");
+                            motoBike.AnhMoTaUrl = await DownloadImage(motoBike, url, anhMoTaFolderPath, (motoBike.MaXe + "_MoTa.png"));
+                        }
+                        motoBike.GiaBanMoTa = productNode.SelectSingleNode(".//div[@class='nameAndColor'] //span").InnerText.Trim();
+
+                        //lay du lieu tu trang 2
+                        var productDetailNode = productNode.SelectSingleNode(".//a[@class='category-item-content']");
+                        if (productDetailNode != null)
+                        {
+                            string productDetailUrl = productDetailNode.GetAttributeValue("href", "");
+                            string page2Url = webUrl2 + productDetailUrl;
+                            var page2 = html.Load(page2Url);
+
+                            //lay thong tin ve anh, mau, gia
+                            await setMotoVersion(motoBike, page2, page2Url, html);
+
+                            // lay tu danh sach thong tin ve thong so ky thuat
+                            setThongSoKyThuat(motoBike, page2);
+
+                            // lay danh sach anh trong thu vien anh
+                            await setMotoLibrary(motoBike, page2);
+
+                        }
+                        // them vao
+                        motoBikes.Add(motoBike);
+
+                        #region Them brand &type
+                        Brand brand = new Brand();
+                        brand.MaHangSanXuat = motoBike.MaHangSanXuat;
+                        brand.TenHangSanXuat = "Honda";
+                        if (!brands.Contains(brand))
+                        {
+                            brand.BikeList.Add(motoBike);
+                            brands.Add(brand);
+                        }
+                        else
+                        {
+                            foreach (var b in brands)
                             {
-                                mau = mauNode.SelectSingleNode("./div[@class = 'color-text']").InnerText.Trim();
-                                break;
+                                if (b.MaHangSanXuat.Equals(brand.MaHangSanXuat))
+                                {
+                                    b.BikeList.Add(motoBike);
+                                    break;
+                                }
                             }
                         }
+                        BikeType type = new BikeType();
+                        type.MaLoai = motoBike.MaLoai;
+                        if (!bikeTypes.Contains(type))
+                        {
+                            type.SetTenLoai();
+                            type.BikeList.Add(motoBike);
+                            bikeTypes.Add(type);
+                        }
+                        else
+                        {
+                            foreach (var t in bikeTypes)
+                            {
+                                if (t.MaLoai.Equals(type.MaLoai))
+                                {
+                                    t.BikeList.Add(motoBike);
+                                    break;
+                                }
+                            }
+                        }
+                        #endregion
+                        //break;
                     }
-                    motoBike.SetAnhMauGia(maVersion,tenPhienBan,giaBan, anhUrl,mau);
+                
                 }
             }
+            else
+            {
+                Console.WriteLine("Product Nodes is null");
+            }
         }
+
+        public static async Task setMotoVersion(MotoBike motoBike, HtmlDocument page2, string url, HtmlWeb html)
+        {
+            var versionList = page2.DocumentNode.SelectSingleNode(".//select[@name ='version']");
+            var list = versionList.SelectNodes("./option");
+            Console.WriteLine("xe " + motoBike.TenXe + " co bang nay version nay " + list.Count);
+            
+            foreach (var node in list)
+            {
+                string newUrl = "";
+                int queryIndex = url.IndexOf('?');
+                if (queryIndex > -1)
+                {
+                    newUrl = url.Substring(0, queryIndex);
+                }
+                int idVersion = node.GetAttributeValue("value", 0);
+                Console.WriteLine("link moi ne: " + newUrl + "?version=" + idVersion);
+                var page3 = html.Load(newUrl + "?version=" + idVersion);
+                //tren nay chay ngon roi nhe dcu no
+
+                string maVersion = motoBike.MaXe + "_Version_" + idVersion;
+                string tenVersion = node.InnerText.Trim();
+                string giaBan = page3.DocumentNode.SelectSingleNode(".//h2[@class='proposal-price']").InnerText.Trim();
+                string color = "";
+                string colorID = "";
+                List<string> anhVersionsURL = new List<string>();
+                //set ten version roi
+                //Console.WriteLine(maVersion + " " + tenVersion + " " + giaBan);
+
+                var mauNode = page3.DocumentNode.SelectSingleNode(".//div[@class='card-body']");
+                var mauNodes = mauNode.SelectNodes("./div");
+                if (mauNodes != null)
+                {
+                    Console.WriteLine("version nay co bang nay mau day" + mauNodes.Count);
+                    foreach (var colorNode in mauNodes)
+                    {
+                        string tenmau = colorNode.SelectSingleNode("./div[@class = 'color-text']//span").InnerText.Trim();
+                        color = tenmau;
+                        colorID = motoBike.MaXe + "_Version_" + idVersion + "_" + tenmau; 
+                        int VersionColorID = int.Parse(colorNode.GetAttributeValue("data-index", ""));
+
+
+                        var container = page3.DocumentNode.SelectSingleNode(".//div[@id='collapseModelDK0']");
+                        var containerNodes = container.SelectNodes("./div");
+
+                        foreach (var containerNode in containerNodes)
+                        {
+                            int containerId = int.Parse(containerNode.GetAttributeValue("data-index", ""));
+                            if (VersionColorID == containerId)
+                            {
+                                var imgNode = containerNode.SelectSingleNode(".//div[@class ='canvas-image-360']/img[@alt='example']");
+                                if (imgNode != null)
+                                {
+                                    Console.WriteLine("imgNodes khong bi null nhe ca nha" + idVersion);
+                                    for (int j = 0; j < 8; j++)
+                                    {
+                                        string anhUrl = imgNode.GetAttributeValue("src", "");
+                                        string newLink = anhUrl.Substring(0, anhUrl.Length - 5) + j + ".png";
+                                        string fileName = maVersion + "_" + j + ".png";
+                                        string anhDownloadUrl = await DownloadImage(motoBike, newLink, anhVersionFolderPath, fileName);
+                                        anhVersionsURL.Add(fileName);
+                                    }
+                                }
+                                else
+                                {
+                                    //set th2 o day
+                                    Console.WriteLine("imgNodes null nhe ca nha" + idVersion);
+                                    var imgNode2 = containerNode.SelectSingleNode(".//img");
+                                    if (imgNode2 != null)
+                                    {
+                                        string anhUrl = imgNode2.GetAttributeValue("src", "");
+                                        string fileName = maVersion + "_" + 0 + ".png";
+                                        string anhDownloadUrl = await DownloadImage(motoBike, url, anhVersionFolderPath, fileName);
+                                        anhVersionsURL.Add(fileName);
+                                        //Console.WriteLine(fileName);
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Null anh");
+                }
+                motoBike.setMotoVersion(maVersion, tenVersion, giaBan, colorID,color, anhVersionsURL);
+                Console.WriteLine();
+            }
+
+        }
+
         public static void setThongSoKyThuat(MotoBike motoBike, HtmlDocument page2)
         {// phuong thuc nay set thong so ky thuat
             var productDetailNodes = page2.DocumentNode.SelectNodes(".//div[@class='col-6 col-lg-7 spec-item-value']");
@@ -183,12 +287,39 @@ namespace GetDataByHTMLAgilityPack
             {
                 Console.WriteLine("null");
             }
+
+            // set cac thu khac
+            var descriptionNodes = page2.DocumentNode.SelectNodes(".//div[@class='description_mb slide-animation']");
+            if (descriptionNodes != null)
+            {
+                for (int i = 0; i < descriptionNodes.Count; i++)
+                {
+                    string description = descriptionNodes[i].SelectSingleNode(".//p[@class='description']").InnerText.Trim();
+                    if (i == 0)
+                    {
+                        motoBike.TinhNangNoiBat = description;
+
+                    }
+                    else if (i == 1)
+                    {
+                        motoBike.ThietKe = description;
+
+                    }
+                    else if (i == 3)
+                    {
+                        motoBike.TienIch = description;
+
+                    }
+                }
+
+            }
+
         }
 
         public static async Task setMotoLibrary(MotoBike motoBike, HtmlDocument page2)
         {
-            var libraryNodes = page2.DocumentNode.SelectNodes(".//div[@class='col-md-4 col-6 library_image']");
-            if (libraryNodes != null) 
+            var libraryNodes = page2.DocumentNode.SelectNodes(".//div[@class='library_image']");
+            if (libraryNodes != null)
             {
                 string libraryId = motoBike.MaXe + "_library";
                 List<string> imgList = new List<string>();
@@ -200,6 +331,7 @@ namespace GetDataByHTMLAgilityPack
                     string imgUrl = await DownloadImage(motoBike, url, libraryImgFolderPath, (motoBike.MaXe + "_ThuVien_" + index + ".png"));
                     imgList.Add(imgUrl);
                     index++;
+                    
                 }
                 motoBike.setMotoLibrary(libraryId, imgList);
             }
@@ -210,20 +342,11 @@ namespace GetDataByHTMLAgilityPack
                 List<string> imgList = new List<string>();
                 imgList.Add(imgurl);
                 motoBike.setMotoLibrary(libraryId, imgList);
+                
             }
         }
-        public static void ShowList()
-        {
-            if (motoBikes.Count > 0)
-            {
-                foreach (var moto in motoBikes)
-                {
-                    moto.ShowInformation();
-                }
-            }
-        }
-        
-        public static async Task<string> DownloadImage (MotoBike motoBike,string imgUrl, string saveFolderPath, string fileName)
+
+        public static async Task<string> DownloadImage(MotoBike motoBike, string imgUrl, string saveFolderPath, string fileName)
         {
             // phuong thuc down anh xuong va tra ve dia chi sau khi da luu vao o dia
             using (HttpClient client = new HttpClient())
@@ -234,18 +357,18 @@ namespace GetDataByHTMLAgilityPack
                     string filePath = Path.Combine(saveFolderPath, fileName);
                     if (System.IO.File.Exists(filePath))
                     {
-                        return filePath;
+                        return fileName;
                     }
                     else
                     {
                         byte[] imageBytes = await client.GetByteArrayAsync(imgUrl);
                         await System.IO.File.WriteAllBytesAsync(filePath, imageBytes);
-                        return filePath;
+                        return fileName;
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    Console.WriteLine (ex.Message);
+                    Console.WriteLine(ex.Message);
                     return "";
                 }
             }
@@ -254,29 +377,29 @@ namespace GetDataByHTMLAgilityPack
         public static void AddDataIntoMotoBike()
         {
             string insertMotoBikeQuery = @"INSERT INTO MotoBike 
-            (MaXe, TenXe, LoaiXe, HangSanXuat, AnhMoTaUrl, GiaBanMoTa, MoTa, TrongLuong, KichThuoc, KhoangCachTrucBanhXe, 
-            DoCaoYen, DoCaoGamXe, DungTichBinhXang, KichCoLop, PhuocTruoc, PhuocSau, LoaiDongCo, CongSuatToiDa, 
-            MucTieuThuNhienLieu, HeThongKhoiDong, MomentCucDai, DungTichXyLanh, DuongKinhHanhTrinhPittong, TySoNen, MaLibrary) 
-            VALUES (@MaXe, @TenXe, @LoaiXe, @HangSanXuat, @AnhMoTaUrl, @GiaBanMoTa, @MoTa, @TrongLuong, @KichThuoc, 
-            @KhoangCachTrucBanhXe, @DoCaoYen, @DoCaoGamXe, @DungTichBinhXang, @KichCoLop, @PhuocTruoc, @PhuocSau, 
-            @LoaiDongCo, @CongSuatToiDa, @MucTieuThuNhienLieu, @HeThongKhoiDong, @MomentCucDai, @DungTichXyLanh, 
-            @DuongKinhHanhTrinhPittong, @TySoNen, @MaLibrary)";
+                (MaXe, TenXe, MaLoai, MaHangSanXuat, AnhMoTaUrl, GiaBanMoTa, TrongLuong, KichThuoc, KhoangCachTrucBanhXe, 
+                DoCaoYen, DoCaoGamXe, DungTichBinhXang, KichCoLop, PhuocTruoc, PhuocSau, LoaiDongCo, CongSuatToiDa, 
+                MucTieuThuNhienLieu, HeThongKhoiDong, MomentCucDai, DungTichXyLanh, DuongKinhHanhTrinhPittong, TySoNen, 
+                TinhNangNoiBat, ThietKe, TienIch, MaLibrary) 
+                VALUES (@MaXe, @TenXe, @MaLoai, @MaHangSanXuat, @AnhMoTaUrl, @GiaBanMoTa, @TrongLuong, @KichThuoc, 
+                @KhoangCachTrucBanhXe, @DoCaoYen, @DoCaoGamXe, @DungTichBinhXang, @KichCoLop, @PhuocTruoc, @PhuocSau, 
+                @LoaiDongCo, @CongSuatToiDa, @MucTieuThuNhienLieu, @HeThongKhoiDong, @MomentCucDai, @DungTichXyLanh, 
+                @DuongKinhHanhTrinhPittong, @TySoNen, @TinhNangNoiBat, @ThietKe, @TienIch, @MaLibrary)";
 
 
             foreach (var moto in motoBikes)
             {
-                
+
                 using (connection = new SqlConnection(connectionString))
                 {
                     // truyen vao bang MotoBike
                     SqlCommand cmd = new SqlCommand(insertMotoBikeQuery, connection);
                     cmd.Parameters.AddWithValue("@MaXe", moto.MaXe);
                     cmd.Parameters.AddWithValue("@TenXe", moto.TenXe);
-                    cmd.Parameters.AddWithValue("@LoaiXe", moto.LoaiXe);
-                    cmd.Parameters.AddWithValue("@HangSanXuat", moto.HangSanXuat);
+                    cmd.Parameters.AddWithValue("@MaLoai", moto.MaLoai);
+                    cmd.Parameters.AddWithValue("@MaHangSanXuat", moto.MaHangSanXuat);
                     cmd.Parameters.AddWithValue("@AnhMoTaUrl", moto.AnhMoTaUrl);
-                    cmd.Parameters.AddWithValue("@GiaBanMoTa", moto.GiaBanMoTa);
-                    cmd.Parameters.AddWithValue("@MoTa", moto.MoTa);
+                    cmd.Parameters.AddWithValue("@GiaBanMoTa", moto.GiaBanMoTa); 
                     cmd.Parameters.AddWithValue("@TrongLuong", moto.TrongLuong);
                     cmd.Parameters.AddWithValue("@KichThuoc", moto.KichThuoc);
                     cmd.Parameters.AddWithValue("@KhoangCachTrucBanhXe", moto.KhoangCachTrucBanhXe);
@@ -293,18 +416,32 @@ namespace GetDataByHTMLAgilityPack
                     cmd.Parameters.AddWithValue("@MomentCucDai", moto.MomentCucDai);
                     cmd.Parameters.AddWithValue("@DungTichXyLanh", moto.DungTichXyLanh);
                     cmd.Parameters.AddWithValue("@DuongKinhHanhTrinhPittong", moto.DuongKinhHanhTrinhPittong);
-                    cmd.Parameters.AddWithValue("@TySoNen", moto.TySoNen);
+                    if (moto.TySoNen == null)
+                    {
+                        cmd.Parameters.AddWithValue("@TySoNen", "11,5:1");
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@TySoNen", moto.TySoNen);
+                    }
+                    cmd.Parameters.AddWithValue("@TinhNangNoiBat", moto.TinhNangNoiBat);
+                    cmd.Parameters.AddWithValue("@ThietKe", moto.ThietKe);
+                    if (moto.TienIch != null)
+                    {
+                        cmd.Parameters.AddWithValue("@TienIch", moto.TienIch);
+                    }
+                    else 
+                    {
+                        cmd.Parameters.AddWithValue("@TienIch", "@Hệ thống phanh chống bó cứng (ABS) giúp tăng tính an toàn khi phanh gấp, tránh bị trượt bánh, đặc biệt là trên đường trơn trượt.");
+                    }
                     cmd.Parameters.AddWithValue("@MaLibrary", moto.MotoLibrary.MaLibrary);
-
-                    ///////////
                     connection.Open();
                     cmd.ExecuteNonQuery();
-                }  
-                
+                }
+
             }
 
         }
-
 
         public static void AddDataIntoMotoLibrary()
         {
@@ -341,10 +478,9 @@ namespace GetDataByHTMLAgilityPack
             }
         }
 
-
-        public static void AddDataIntoMotoImage()
+        public static void AddDataIntoLibraryImage()
         {
-            string insertMotoImageQuery = "INSERT INTO MotoImage (MaLibrary, ImageUrl) VALUES (@MaLibrary, @ImageUrl)";
+            string insertMotoImageQuery = "INSERT INTO LibraryImage (MaLibrary, ImageUrl) VALUES (@MaLibrary, @ImageUrl)";
             foreach (var moto in motoBikes)
             {
                 foreach (var image in moto.MotoLibrary.MotoImageList)
@@ -360,12 +496,12 @@ namespace GetDataByHTMLAgilityPack
                 }
             }
         }
-        public static void AddDataIntoBikeVersion()
+
+        public static void AddDataIntoMotoVersion()
         {
             string insertMotoVersionQuery = @"INSERT INTO MotoVersion 
-                (MaVersion, TenVersion, GiaBanVersion, AnhVersionUrl, MauVersion, MaXe) 
-            VALUES 
-                (@MaVersion, @TenVersion, @GiaBanVersion, @AnhVersionUrl, @MauVersion, @MaXe)";
+                            (MaVersion, TenVersion, GiaBanVersion, MaXe) 
+                     VALUES (@MaVersion, @TenVersion, @GiaBanVersion, @MaXe)";
 
             foreach (var moto in motoBikes)
             {
@@ -378,12 +514,120 @@ namespace GetDataByHTMLAgilityPack
                         cmd.Parameters.AddWithValue("@MaVersion", version.MaVersion);
                         cmd.Parameters.AddWithValue("@TenVersion", version.TenVersion);
                         cmd.Parameters.AddWithValue("@GiaBanVersion", version.GiaBanVersion);
-                        cmd.Parameters.AddWithValue("@AnhVersionUrl", version.AnhVersionUrl);
-                        cmd.Parameters.AddWithValue("@MauVersion", version.MauVersion);
                         cmd.Parameters.AddWithValue("@MaXe", moto.MaXe);
                         connection.Open();
                         cmd.ExecuteNonQuery();
                     }
+                }
+            }
+        }
+        public static void AddDataIntoVersionColor()
+        {
+            string insertVersionColorQuery = @"INSERT INTO VersionColor (MaVersionColor, TenMau, MaVersion) 
+                                   VALUES (@MaVersionColor, @TenMau, @MaVersion)";
+            string insertVersionImageQuery = @"INSERT INTO VersionImage (MaVersionColor, ImageUrl) 
+                                   VALUES (@MaVersionColor, @ImageUrl)";
+            foreach (var moto in motoBikes)
+            {
+                foreach (var version in moto.BikeVersionList)
+                {
+                    foreach (var versionColor in version.VersionColor)
+                    {
+                        using (connection = new SqlConnection(connectionString))
+                        {
+                            SqlCommand cmd = new SqlCommand(insertVersionColorQuery, connection);
+                            cmd.Parameters.AddWithValue("@MaVersionColor", versionColor.MaMau);
+                            cmd.Parameters.AddWithValue("@TenMau", versionColor.TenMau);
+                            cmd.Parameters.AddWithValue("@MaVersion", version.MaVersion);
+                            connection.Open();
+                            cmd.ExecuteNonQuery();
+                        }
+                        foreach (var anh in versionColor.AnhVersions)
+                        {
+                            using (connection = new SqlConnection(connectionString))
+                            {
+                                SqlCommand cmd = new SqlCommand(insertVersionImageQuery, connection);
+                                cmd.Parameters.AddWithValue("@MaVersionColor", versionColor.MaMau);
+                                cmd.Parameters.AddWithValue("@ImageUrl", anh);
+                                connection.Open();
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        /*public static void AddDataIntoVersionColor()
+        {
+            string insertVersionColorQuery = @"INSERT INTO VersionColor (MaVersionColor, TenMau, MaVersion) 
+                                   VALUES (@MaVersionColor, @TenMau, @MaVersion)";
+            string insertVersionImageQuery = @"INSERT INTO VersionImage (MaVersionColor, ImageUrl) 
+                                   VALUES (@MaVersionColor, @ImageUrl)";
+            foreach (var moto in motoBikes)
+            {
+                foreach (var version in moto.BikeVersionList)
+                {
+                    foreach (var versionColor in version.VersionColor)
+                    {
+                        using (connection = new SqlConnection(connectionString))
+                        {
+                            SqlCommand cmd = new SqlCommand(insertVersionColorQuery, connection);
+                            cmd.Parameters.AddWithValue("@MaVersionColor", versionColor.MaMau);
+                            cmd.Parameters.AddWithValue("@TenMau", versionColor.TenMau);
+                            cmd.Parameters.AddWithValue("@MaVersion", version.MaVersion);
+                            connection.Open();
+                            cmd.ExecuteNonQuery();
+                        }
+                        foreach (var anh in versionColor.AnhVersions)
+                        {
+                            using (connection = new SqlConnection(connectionString))
+                            {
+                                SqlCommand cmd = new SqlCommand(insertVersionImageQuery, connection);
+                                cmd.Parameters.AddWithValue("@MaVersionColor", versionColor.MaMau);
+                                cmd.Parameters.AddWithValue("@ImageUrl", anh);
+                                connection.Open();
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+*/
+        public static void AdddataIntoBrand()
+        {
+            string insertBrandQuery = @"INSERT INTO Brand 
+                    (MaHangSanXuat, TenHangSanXuat) 
+                    VALUES (@MaHangSanXuat, @TenHangSanXuat)";
+
+            foreach (var brand in brands)
+            {
+                using (connection = new SqlConnection(connectionString))
+                {
+                    SqlCommand cmd = new SqlCommand(insertBrandQuery, connection);
+                    cmd.Parameters.AddWithValue("@MaHangSanXuat", brand.MaHangSanXuat);
+                    cmd.Parameters.AddWithValue("@TenHangSanXuat", brand.TenHangSanXuat);
+                    connection.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public static void AddDataIntoMotoType()
+        {
+            string insertBikeTypeQuery = @"INSERT INTO MotoType 
+                    (MaLoai, TenLoai) 
+                    VALUES (@MaLoai, @TenLoai)";
+            foreach (var type in bikeTypes)
+            {
+                using (connection = new SqlConnection(connectionString))
+                {
+                    SqlCommand cmd = new SqlCommand(insertBikeTypeQuery, connection);
+                    cmd.Parameters.AddWithValue("@MaLoai", type.MaLoai);
+                    cmd.Parameters.AddWithValue("@TenLoai", type.TenLoai);
+                    connection.Open();
+                    cmd.ExecuteNonQuery();
                 }
             }
         }

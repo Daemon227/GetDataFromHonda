@@ -3,20 +3,32 @@
   "WorkspaceRootPath": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\BTL\\GetData\\GetDataByHTMLAgilityPack\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{254199A1-BD23-47F8-A6B2-3B2F279AF642}|GetDataByHTMLAgilityPack\\GetDataByHTMLAgilityPack.csproj|d:\\hoc tap\\hoc ky 5\\ptpm dv\\btl\\getdata\\getdatabyhtmlagilitypack\\getdatabyhtmlagilitypack\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{254199A1-BD23-47F8-A6B2-3B2F279AF642}|GetDataByHTMLAgilityPack\\GetDataByHTMLAgilityPack.csproj|solutionrelative:getdatabyhtmlagilitypack\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{254199A1-BD23-47F8-A6B2-3B2F279AF642}|GetDataByHTMLAgilityPack\\GetDataByHTMLAgilityPack.csproj|d:\\hoc tap\\hoc ky 5\\ptpm dv\\btl\\getdata\\getdatabyhtmlagilitypack\\getdatabyhtmlagilitypack\\motolibrary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{254199A1-BD23-47F8-A6B2-3B2F279AF642}|GetDataByHTMLAgilityPack\\GetDataByHTMLAgilityPack.csproj|solutionrelative:getdatabyhtmlagilitypack\\motolibrary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{254199A1-BD23-47F8-A6B2-3B2F279AF642}|GetDataByHTMLAgilityPack\\GetDataByHTMLAgilityPack.csproj|d:\\hoc tap\\hoc ky 5\\ptpm dv\\btl\\getdata\\getdatabyhtmlagilitypack\\getdatabyhtmlagilitypack\\versioncolor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{254199A1-BD23-47F8-A6B2-3B2F279AF642}|GetDataByHTMLAgilityPack\\GetDataByHTMLAgilityPack.csproj|solutionrelative:getdatabyhtmlagilitypack\\versioncolor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{254199A1-BD23-47F8-A6B2-3B2F279AF642}|GetDataByHTMLAgilityPack\\GetDataByHTMLAgilityPack.csproj|d:\\hoc tap\\hoc ky 5\\ptpm dv\\btl\\getdata\\getdatabyhtmlagilitypack\\getdatabyhtmlagilitypack\\bikeversion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{254199A1-BD23-47F8-A6B2-3B2F279AF642}|GetDataByHTMLAgilityPack\\GetDataByHTMLAgilityPack.csproj|solutionrelative:getdatabyhtmlagilitypack\\bikeversion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{254199A1-BD23-47F8-A6B2-3B2F279AF642}|GetDataByHTMLAgilityPack\\GetDataByHTMLAgilityPack.csproj|d:\\hoc tap\\hoc ky 5\\ptpm dv\\btl\\getdata\\getdatabyhtmlagilitypack\\getdatabyhtmlagilitypack\\brand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{254199A1-BD23-47F8-A6B2-3B2F279AF642}|GetDataByHTMLAgilityPack\\GetDataByHTMLAgilityPack.csproj|solutionrelative:getdatabyhtmlagilitypack\\brand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{254199A1-BD23-47F8-A6B2-3B2F279AF642}|GetDataByHTMLAgilityPack\\GetDataByHTMLAgilityPack.csproj|d:\\hoc tap\\hoc ky 5\\ptpm dv\\btl\\getdata\\getdatabyhtmlagilitypack\\getdatabyhtmlagilitypack\\biketype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{254199A1-BD23-47F8-A6B2-3B2F279AF642}|GetDataByHTMLAgilityPack\\GetDataByHTMLAgilityPack.csproj|solutionrelative:getdatabyhtmlagilitypack\\biketype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{254199A1-BD23-47F8-A6B2-3B2F279AF642}|GetDataByHTMLAgilityPack\\GetDataByHTMLAgilityPack.csproj|d:\\hoc tap\\hoc ky 5\\ptpm dv\\btl\\getdata\\getdatabyhtmlagilitypack\\getdatabyhtmlagilitypack\\motolibrary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{254199A1-BD23-47F8-A6B2-3B2F279AF642}|GetDataByHTMLAgilityPack\\GetDataByHTMLAgilityPack.csproj|solutionrelative:getdatabyhtmlagilitypack\\motolibrary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{254199A1-BD23-47F8-A6B2-3B2F279AF642}|GetDataByHTMLAgilityPack\\GetDataByHTMLAgilityPack.csproj|d:\\hoc tap\\hoc ky 5\\ptpm dv\\btl\\getdata\\getdatabyhtmlagilitypack\\getdatabyhtmlagilitypack\\motobike.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{254199A1-BD23-47F8-A6B2-3B2F279AF642}|GetDataByHTMLAgilityPack\\GetDataByHTMLAgilityPack.csproj|solutionrelative:getdatabyhtmlagilitypack\\motobike.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{254199A1-BD23-47F8-A6B2-3B2F279AF642}|GetDataByHTMLAgilityPack\\GetDataByHTMLAgilityPack.csproj|d:\\hoc tap\\hoc ky 5\\ptpm dv\\btl\\getdata\\getdatabyhtmlagilitypack\\getdatabyhtmlagilitypack\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{254199A1-BD23-47F8-A6B2-3B2F279AF642}|GetDataByHTMLAgilityPack\\GetDataByHTMLAgilityPack.csproj|solutionrelative:getdatabyhtmlagilitypack\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,56 +38,95 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "MotoLibrary.cs",
-              "DocumentMoniker": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\BTL\\GetData\\GetDataByHTMLAgilityPack\\GetDataByHTMLAgilityPack\\MotoLibrary.cs",
-              "RelativeDocumentMoniker": "GetDataByHTMLAgilityPack\\MotoLibrary.cs",
-              "ToolTip": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\BTL\\GetData\\GetDataByHTMLAgilityPack\\GetDataByHTMLAgilityPack\\MotoLibrary.cs",
-              "RelativeToolTip": "GetDataByHTMLAgilityPack\\MotoLibrary.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAApAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "VersionColor.cs",
+              "DocumentMoniker": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\BTL\\GetData\\GetDataByHTMLAgilityPack\\GetDataByHTMLAgilityPack\\VersionColor.cs",
+              "RelativeDocumentMoniker": "GetDataByHTMLAgilityPack\\VersionColor.cs",
+              "ToolTip": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\BTL\\GetData\\GetDataByHTMLAgilityPack\\GetDataByHTMLAgilityPack\\VersionColor.cs",
+              "RelativeToolTip": "GetDataByHTMLAgilityPack\\VersionColor.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAkAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-15T16:35:05.043Z",
+              "WhenOpened": "2024-10-24T15:40:02.909Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "BikeVersion.cs",
               "DocumentMoniker": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\BTL\\GetData\\GetDataByHTMLAgilityPack\\GetDataByHTMLAgilityPack\\BikeVersion.cs",
               "RelativeDocumentMoniker": "GetDataByHTMLAgilityPack\\BikeVersion.cs",
               "ToolTip": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\BTL\\GetData\\GetDataByHTMLAgilityPack\\GetDataByHTMLAgilityPack\\BikeVersion.cs",
               "RelativeToolTip": "GetDataByHTMLAgilityPack\\BikeVersion.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAABYAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAmwBgAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-14T18:11:32.527Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Brand.cs",
+              "DocumentMoniker": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\BTL\\GetData\\GetDataByHTMLAgilityPack\\GetDataByHTMLAgilityPack\\Brand.cs",
+              "RelativeDocumentMoniker": "GetDataByHTMLAgilityPack\\Brand.cs",
+              "ToolTip": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\BTL\\GetData\\GetDataByHTMLAgilityPack\\GetDataByHTMLAgilityPack\\Brand.cs",
+              "RelativeToolTip": "GetDataByHTMLAgilityPack\\Brand.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAgAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-18T02:34:59.981Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "BikeType.cs",
+              "DocumentMoniker": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\BTL\\GetData\\GetDataByHTMLAgilityPack\\GetDataByHTMLAgilityPack\\BikeType.cs",
+              "RelativeDocumentMoniker": "GetDataByHTMLAgilityPack\\BikeType.cs",
+              "ToolTip": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\BTL\\GetData\\GetDataByHTMLAgilityPack\\GetDataByHTMLAgilityPack\\BikeType.cs",
+              "RelativeToolTip": "GetDataByHTMLAgilityPack\\BikeType.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAsAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-18T02:34:34.432Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MotoLibrary.cs",
+              "DocumentMoniker": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\BTL\\GetData\\GetDataByHTMLAgilityPack\\GetDataByHTMLAgilityPack\\MotoLibrary.cs",
+              "RelativeDocumentMoniker": "GetDataByHTMLAgilityPack\\MotoLibrary.cs",
+              "ToolTip": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\BTL\\GetData\\GetDataByHTMLAgilityPack\\GetDataByHTMLAgilityPack\\MotoLibrary.cs",
+              "RelativeToolTip": "GetDataByHTMLAgilityPack\\MotoLibrary.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA0AAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-15T16:35:05.043Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "MotoBike.cs",
               "DocumentMoniker": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\BTL\\GetData\\GetDataByHTMLAgilityPack\\GetDataByHTMLAgilityPack\\MotoBike.cs",
               "RelativeDocumentMoniker": "GetDataByHTMLAgilityPack\\MotoBike.cs",
               "ToolTip": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\BTL\\GetData\\GetDataByHTMLAgilityPack\\GetDataByHTMLAgilityPack\\MotoBike.cs",
               "RelativeToolTip": "GetDataByHTMLAgilityPack\\MotoBike.cs",
-              "ViewState": "AgIAAIIAAAAAAAAAAAAiwJsAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAGUAAAAAAAAAAAAAwF8AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-14T18:11:18.462Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 6,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\BTL\\GetData\\GetDataByHTMLAgilityPack\\GetDataByHTMLAgilityPack\\Program.cs",
               "RelativeDocumentMoniker": "GetDataByHTMLAgilityPack\\Program.cs",
               "ToolTip": "D:\\HOC TAP\\HOC KY 5\\PTPM DV\\BTL\\GetData\\GetDataByHTMLAgilityPack\\GetDataByHTMLAgilityPack\\Program.cs",
               "RelativeToolTip": "GetDataByHTMLAgilityPack\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAI0AAAAZAAAAAAAAAA==",
+              "ViewState": "AgIAAPoAAAAAAAAAAAAAwA0AAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-07T08:10:42.375Z",
               "EditorCaption": ""

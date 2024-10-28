@@ -12,13 +12,20 @@ namespace GetDataByHTMLAgilityPack
         private string maVersion;
         private string tenVersion;
         private string giaBanVersion;
-        private string anhVersionUrl;
-        private string mauVersion;
+        private List<VersionColor> versionColor = new List<VersionColor>();
 
         public string MaVersion { get => maVersion; set => maVersion = value; }
         public string GiaBanVersion { get => giaBanVersion; set => giaBanVersion = value; }
-        public string AnhVersionUrl { get => anhVersionUrl; set => anhVersionUrl = value; }
-        public string MauVersion { get => mauVersion; set => mauVersion = value; }
         public string TenVersion { get => tenVersion; set => tenVersion = value; }
+        public List<VersionColor> VersionColor { get => versionColor; set => versionColor = value; }
+
+        public void setVersionColor(string mamau,string name, List<string> urls)
+        {
+            VersionColor v = new VersionColor();
+            v.MaMau = mamau;
+            v.TenMau = name;
+            v.AnhVersions = urls;
+            this.versionColor.Add(v);
+        }
     }
 }

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GetDataByHTMLAgilityPack")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ad67e6453e8a6efa82ecfc8a3145c880f97c9f11")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e76cebb8e2313e13982a09e438b4eeacd1726b4b")]
 [assembly: System.Reflection.AssemblyProductAttribute("GetDataByHTMLAgilityPack")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GetDataByHTMLAgilityPack")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
